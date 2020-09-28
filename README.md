@@ -77,7 +77,7 @@ export default function App() {
 }
 ```
 
-Check more examples [here](/example/src)
+Check more examples [here](/examples/src)
 
 NOTE.
 
