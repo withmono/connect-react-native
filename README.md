@@ -1,4 +1,4 @@
-# @mono/connect-react-native
+# @mono.co/connect-react-native
 
 This package make it easy to use the Mono connect widget in a react native project.
 

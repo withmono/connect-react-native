@@ -7,13 +7,14 @@
     "example": "example"
   },
   "scripts": {
-    "build": "tsc --project ./tsconfig.json",
-    "prepare": "npm run build"
+    "build": "tsc --project ./tsconfig.json"
+  },
+  "dependencies": {
+    "react-native-webview": ">=6.0.2"
   },
   "peerDependencies": {
     "react": "*",
-    "react-native": "*",
-    "react-native-webview": "*"
+    "react-native": "*"
   },
   "publishConfig": {
     "access": "public"

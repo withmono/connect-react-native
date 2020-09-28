@@ -14,7 +14,7 @@ function MonoProvider(props: any): JSX.Element {
   const ref = React.createRef<MonoConnectRefObj>()
 
   function init() {
-    ref.current?.openWidget()
+    ref.current?.openWidget();
   }
 
   return (
