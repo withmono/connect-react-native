@@ -1,5 +1,4 @@
 node_modules/**/*
-example/node_modules
 .expo/*
 npm-debug.*
 *.jks
@@ -10,7 +9,7 @@ npm-debug.*
 *.orig.*
 web-build/
 lib/
-example/node_modules/**/*
+examples/node_modules
 
 # macOS
 .DS_Store
