@@ -2,6 +2,9 @@
 
 This package make it easy to use the Mono connect widget in a react native project.
 
+Request access here:
+https://app.withmono.com/register
+
 ## Installation
 using NPM.
 
