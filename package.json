@@ -1,13 +1,13 @@
 {
   "name": "@mono.co/connect-react-native",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "easily add mono connect widget to your react-native app and get access to users' financial data",
   "main": "lib/index.js",
   "directories": {
     "example": "example"
   },
   "scripts": {
-    "build": "tsc --project ./tsconfig.json"
+    "build": "tsc --project ./tsconfig.json && copyfiles *.png lib/"
   },
   "dependencies": {
     "react-native-webview": ">=6.0.2"
@@ -34,6 +34,7 @@
   "author": "Mono devs",
   "license": "ISC",
   "devDependencies": {
+    "copyfiles": "^2.4.0",
     "typescript": "^4.0.3"
   },
   "files": [
