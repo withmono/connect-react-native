@@ -6,7 +6,6 @@ export function GetHtmlSource(params: HtmlSourceParams): string {
   const { publicKey } = params;
 
   if (!publicKey) {
-    console.log(publicKey)
     throw new Error('MONO_PUBLIC_KEY IS REQUIRED');
   }
 

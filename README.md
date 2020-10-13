@@ -29,7 +29,10 @@ import { MonoProvider, useMonoConnect } from '@mono.co/connect-react-native';
 const config = {
   publicKey: "YOUR_MONO_PUBLIC_KEY_HERE",
   onClose: () => alert('Widget closed'),
-  onSuccess: (data) => console.log(data)
+  onSuccess: (data) => {
+    const code = data.getAuthCode()
+    console.log("Access code", code)
+  }
 }
 
 function LinkAccount() {
