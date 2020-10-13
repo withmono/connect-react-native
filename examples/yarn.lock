@@ -1103,6 +1103,12 @@
     "@types/yargs" "^15.0.0"
     chalk "^3.0.0"
 
+"@mono.co/connect-react-native@./mono.co-connect-react-native-0.0.4.tgz":
+  version "0.0.4"
+  resolved "./mono.co-connect-react-native-0.0.4.tgz#b03f786713ba3859b587b9606dbbcff6c84006e9"
+  dependencies:
+    react-native-webview ">=6.0.2"
+
 "@mono.co/connect-react-native@0.0.3":
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/@mono.co/connect-react-native/-/connect-react-native-0.0.3.tgz#3258aea6004dc21f7cd24e4fb369b422afe5c8a1"
@@ -4473,6 +4479,14 @@ react-native-web@~0.11.7:
     normalize-css-color "^1.0.2"
     prop-types "^15.6.0"
     react-timer-mixin "^0.13.4"
+
+react-native-webview@>=6.0.2:
+  version "10.9.2"
+  resolved "https://registry.yarnpkg.com/react-native-webview/-/react-native-webview-10.9.2.tgz#6dbfcfefb0684a6665e346c0eca8040cbdb5fb75"
+  integrity sha512-bEIHmD1uH3M95V8cZf45MWpSV/FdxKcrlOOpmfAO5arbA9Wd4CjrB2BYInYkMlY3SfHmUN9NTfz5HoQpIS6GTQ==
+  dependencies:
+    escape-string-regexp "2.0.0"
+    invariant "2.2.4"
 
 react-native-webview@^10.9.0:
   version "10.9.0"

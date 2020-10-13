@@ -21,7 +21,7 @@ const MonoConnect: React.ForwardRefRenderFunction<MonoConnectRefObj, MonoConnect
         setOpenWidget(false);
         const data = response.data;
 
-        onSuccess({...data});
+        onSuccess({...data, getAuthCode: () => data.code});
         break;
 
       case "closed":

@@ -5,7 +5,10 @@ import { MonoConnectButton, MonoProvider, useMonoConnect } from '@mono.co/connec
 const config = {
   publicKey: "",
   onClose: () => alert('Widget closed'),
-  onSuccess: (data: any) => console.log(data)
+  onSuccess: (data) => {
+    const code = data.getAuthCode()
+    console.log("Access code", code)
+  }
 }
 
 function LinkAccount() {
