@@ -6,7 +6,7 @@ interface MonoConnectProps {
 }
 
 interface WebviewMessage {
-  event: string;
+  type: string;
   data: any;
 }
 

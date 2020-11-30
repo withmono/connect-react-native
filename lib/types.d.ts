@@ -7,7 +7,7 @@ interface MonoConnectProps {
     live?: boolean;
 }
 interface WebviewMessage {
-    event: string;
+    type: string;
     data: any;
 }
 interface MonoConnectRefObj {

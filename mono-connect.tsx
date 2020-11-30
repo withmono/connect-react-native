@@ -1,13 +1,11 @@
 import React, { useImperativeHandle } from 'react'
-import {SafeAreaView, Modal, View, ActivityIndicator} from 'react-native'
+import {SafeAreaView, Modal, View, Text, StyleSheet, TouchableOpacity, ActivityIndicator} from 'react-native'
 import { WebView } from 'react-native-webview'
-import { GetHtmlSource } from './html';
 import { MonoConnectProps, MonoConnectRefObj, WebviewMessage } from './types';
 
 const MonoConnect: React.ForwardRefRenderFunction<MonoConnectRefObj, MonoConnectProps> = (props, ref) => {
   const { publicKey, onClose, onSuccess } = props;
   const [openWidget, setOpenWidget] = React.useState<boolean>(false);
-  const [loading, setLoading] = React.useState<boolean>(true);
 
   useImperativeHandle(ref, () => ({
     openWidget: () => setOpenWidget(true)
@@ -16,49 +14,77 @@ const MonoConnect: React.ForwardRefRenderFunction<MonoConnectRefObj, MonoConnect
   function handleMessage(message: string) {
     const response: WebviewMessage = JSON.parse(message);
 
-    switch (response.event) {
-      case "done":
-        setOpenWidget(false);
+    switch (response.type) {
+      case "mono.connect.widget.account_linked":
         const data = response.data;
 
         onSuccess({...data, getAuthCode: () => data.code});
+        setOpenWidget(false);
         break;
 
-      case "closed":
+      case "mono.connect.widget.closed":
         setOpenWidget(false);
         onClose();
         break;
-
-      default:
-        throw new Error('INVALID EVENT TYPE')
     }
   }
 
-  return (
-    <SafeAreaView style={[{ flex: 1 }]}>
-      <Modal
-        visible={openWidget}
-        animationType="slide"
-        transparent={false}
-      >
-        <SafeAreaView style={[{ flex: 1 }]}>
-          {loading ? (
-            <View>
-              <ActivityIndicator size="large" color="#182CD1" />
-            </View>
-          ) : null}
+  function RenderError({ name }: any) {
+    return (
+      <View style={{
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        height: "100%",
+        backgroundColor: "white"
+      }}>
+        <Text style={{color: 'red', fontSize: 16, textAlign: "center", paddingHorizontal: 20}}>
+          {name}: Something went wrong. Try again.
+        </Text>
+        <View style={{marginTop: 5}}>
+          <TouchableOpacity 
+            style={styles.btn} 
+            onPress={() => setOpenWidget(false)}>
+              <Text>Close</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    )
+  }
 
-          <WebView
-            style={[{ flex: 1 }]}
-            source={{ html: GetHtmlSource({ publicKey }) }}
-            onMessage={(e: any) => handleMessage(e.nativeEvent.data)}
-            onLoadStart={() => setLoading(true)}
-            onLoadEnd={() => setLoading(false)}
-          />
-        </SafeAreaView>
-      </Modal>
-    </SafeAreaView>
+  const INJECTED_JAVASCRIPT = `window.MonoClientInterface = window.ReactNativeWebView;`;
+
+  return (
+    <Modal
+      visible={openWidget}
+      animationType="slide"
+      transparent={false}
+    >
+      <SafeAreaView style={[{ flex: 1, backgroundColor: "rgba(0,0,0, 0.6)" }]}>
+        <WebView
+          style={{ flex: 1, borderTopLeftRadius: 10, borderTopRightRadius: 10 }}
+          injectedJavaScript={INJECTED_JAVASCRIPT}
+          source={{ uri: `https://connect.withmono.com/?key=${publicKey}&version=0.1.0` }}
+          onMessage={(e: any) => handleMessage(e.nativeEvent.data)}
+          startInLoadingState={true}
+          renderLoading={() => <View style={{display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "white", height: "100%"}}><ActivityIndicator size="small" color="#182CD1"/></View>}
+          renderError={(e) => <RenderError name={e} />}
+        />
+      </SafeAreaView>
+    </Modal>
   );
 }
+
+const styles = StyleSheet.create({
+  btn: {
+    width: '100%', 
+    borderRadius: 5, 
+    backgroundColor: "#E4E7EB", 
+    padding: 10, 
+    alignItems: 'center', 
+    justifyContent: 'center', 
+    marginBottom: 10
+  }
+})
 
 export default React.forwardRef(MonoConnect);
