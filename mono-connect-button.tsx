@@ -8,13 +8,17 @@ import {
   Text,
   Image
 } from 'react-native';
+import { MonoConnectButtonProps } from './types';
 import useMonoConnect from './use-mono-connect';
 
-const MonoConnectButton = () => {
-  const { init } = useMonoConnect()
+const MonoConnectButton: React.FC<MonoConnectButtonProps> = (props) => {
+  const { code } = props;
+  const { init, reauthorise } = useMonoConnect()
   let Btn: React.ComponentType<any>;
   
   function onPress() {
+    if(code) return reauthorise(code);
+
     init();
   }
 
@@ -42,7 +46,7 @@ export default MonoConnectButton;
 
 const styles = StyleSheet.create({
   button: {
-    height: 50,
+    height: 60,
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",

@@ -47,12 +47,27 @@ function LinkAccount() {
   )
 }
 
+function ReauthoriseUserAccount({reauth_code}) {
+  const { reauthorise } = useMonoConnect()
+
+  return (
+    <View style={{marginBottom: 10}}>
+      <TouchableOpacity onPress={() => reauthorise(reauth_code)}>
+        <Text style={{color: 'blue'}}>Reauthorise user account</Text>
+      </TouchableOpacity>
+    </View>
+  )
+}
+
 export default function App() {
+  const code = "code_xyz";
+
   return (
     <MonoProvider {...config}>
       <View style={styles.container}>
         <LinkAccount />
       </View>
+      <ReauthoriseUserAccount reauth_code={code} />
     </MonoProvider>
   );
 }
