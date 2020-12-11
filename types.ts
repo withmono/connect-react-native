@@ -12,10 +12,16 @@ interface WebviewMessage {
 
 interface MonoConnectRefObj {
   openWidget: () => void;
+  reauthorise: (reauth_code: string) => void;
+}
+
+interface MonoConnectButtonProps {
+  code?: string;
 }
 
 export {
   WebviewMessage,
   MonoConnectProps,
-  MonoConnectRefObj
+  MonoConnectRefObj,
+  MonoConnectButtonProps
 }

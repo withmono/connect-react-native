@@ -1,3 +1,4 @@
-/// <reference types="react" />
-declare const MonoConnectButton: () => JSX.Element;
+import React from 'react';
+import { MonoConnectButtonProps } from './types';
+declare const MonoConnectButton: React.FC<MonoConnectButtonProps>;
 export default MonoConnectButton;
