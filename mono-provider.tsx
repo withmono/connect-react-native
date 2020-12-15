@@ -1,6 +1,6 @@
 import React from 'react';
 import MonoConnect from './mono-connect';
-import { MonoConnectProps, MonoConnectRefObj } from './types';
+import { MonoProviderProps } from './types';
 
 export interface MonoContextType {
   init: () => void
@@ -12,21 +12,29 @@ export const MonoContext = React.createContext<MonoContextType>({
   reauthorise: () => null,
 })
 
-function MonoProvider(props: any): JSX.Element {
-  const ref = React.createRef<MonoConnectRefObj>()
+function MonoProvider(props: MonoProviderProps) {
+  const [openWidget, setOpenWidget] = React.useState<boolean>(false);
+  const [reauthToken, setReauthToken] = React.useState<any>(null);
 
   function init() {
-    ref.current?.openWidget();
+    setReauthToken(null);
+    setOpenWidget(true);
   }
 
-  function reauthorise(reauth_code: string) {
-    ref.current?.reauthorise(reauth_code);
+  function reauthorise(reauth_token: string) {
+    setReauthToken(reauth_token);
+    setOpenWidget(true);
   }
 
   return (
     <MonoContext.Provider value={{init, reauthorise}}>
-      <MonoConnect {...props} ref={ref}  />
-      {props.children}
+      <MonoConnect {...{
+        openWidget, 
+        setOpenWidget,
+        reauth_token: reauthToken, 
+        ...props
+      }} />
+        {props.children}
     </MonoContext.Provider>
   )
 }

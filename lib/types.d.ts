@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 interface MonoConnectProps {
     publicKey: string;
     onClose: () => void;
@@ -5,6 +6,9 @@ interface MonoConnectProps {
         id: string;
     }) => void;
     live?: boolean;
+    reauth_token?: string;
+    setOpenWidget: (v: boolean) => void;
+    openWidget: boolean;
 }
 interface WebviewMessage {
     type: string;
@@ -15,6 +19,15 @@ interface MonoConnectRefObj {
     reauthorise: (reauth_code: string) => void;
 }
 interface MonoConnectButtonProps {
-    code?: string;
+    reauth_token?: string;
 }
-export { WebviewMessage, MonoConnectProps, MonoConnectRefObj, MonoConnectButtonProps };
+interface MonoProviderProps {
+    children: ReactNode;
+    publicKey: string;
+    onClose: () => void;
+    onSuccess: (data: {
+        id: string;
+    }) => void;
+    reauth_token?: string;
+}
+export { WebviewMessage, MonoConnectProps, MonoConnectRefObj, MonoConnectButtonProps, MonoProviderProps };
