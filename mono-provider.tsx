@@ -13,7 +13,7 @@ export const MonoContext = React.createContext<MonoContextType>({
 })
 
 function MonoProvider(props: any): JSX.Element {
-  const ref = React.createRef<MonoConnectRefObj>()
+  const ref = React.useRef<MonoConnectRefObj>()
 
   function init() {
     ref.current?.openWidget();
