@@ -1,16 +1,13 @@
-import React, { useImperativeHandle } from 'react';
+import React from 'react';
 import {SafeAreaView, Modal, View, Text, StyleSheet, TouchableOpacity, ActivityIndicator} from 'react-native';
 import { WebView } from 'react-native-webview';
-import { MonoConnectProps, MonoConnectRefObj, WebviewMessage } from './types';
+import { MonoConnectProps, WebviewMessage } from './types';
 
-const MonoConnect: React.ForwardRefRenderFunction<MonoConnectRefObj, MonoConnectProps> = (props, ref) => {
-  const { publicKey, onClose, onSuccess } = props;
-  const [openWidget, setOpenWidget] = React.useState<boolean>(false);
-  const [code, setCode] = React.useState<any>(null);
-
+const MonoConnect: React.FC<MonoConnectProps> = (props) => {
+  const { publicKey, onClose, onSuccess, openWidget, ...otherConfig } = props;
   const connect_url = React.useMemo(() => {
     let base = "https://connect.withmono.com/?";
-    const qs: any = {key: publicKey, code};
+    const qs: any = {key: publicKey, code: otherConfig.reauth_token};
     Object.keys(qs).map(function (k) {
       if (qs[k]) {
         base = base.concat(`${k}=${qs[k]}&`)
@@ -18,20 +15,10 @@ const MonoConnect: React.ForwardRefRenderFunction<MonoConnectRefObj, MonoConnect
     });
 
     return base.slice(0, -1);
-  }, [code, publicKey])
-
-  useImperativeHandle(ref, () => ({
-    openWidget: () => {
-      setCode(null);
-      setOpenWidget(true);
-    },
-    reauthorise: (reauth_code: string) => {
-      setCode(reauth_code);
-      setOpenWidget(true);
-    },
-  }))
+  }, [otherConfig.reauth_token, publicKey])
 
   function handleMessage(message: string) {
+    const { setOpenWidget } = otherConfig;
     const response: WebviewMessage = JSON.parse(message);
 
     switch (response.type) {
@@ -50,6 +37,8 @@ const MonoConnect: React.ForwardRefRenderFunction<MonoConnectRefObj, MonoConnect
   }
 
   function RenderError({ name }: any) {
+    const { setOpenWidget } = otherConfig;
+
     return (
       <View style={styles.errorScreen}>
         <Text style={styles.errorMessage}>
@@ -114,4 +103,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default React.forwardRef(MonoConnect);
+export default MonoConnect;

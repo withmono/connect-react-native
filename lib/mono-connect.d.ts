@@ -1,4 +1,4 @@
 import React from 'react';
-import { MonoConnectProps, MonoConnectRefObj } from './types';
-declare const _default: React.ForwardRefExoticComponent<MonoConnectProps & React.RefAttributes<MonoConnectRefObj>>;
-export default _default;
+import { MonoConnectProps } from './types';
+declare const MonoConnect: React.FC<MonoConnectProps>;
+export default MonoConnect;

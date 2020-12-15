@@ -1,8 +1,13 @@
+import { ReactNode } from "react";
+
 interface MonoConnectProps {
   publicKey: string;
   onClose: () => void;
   onSuccess: (data: {id: string}) => void;
   live?: boolean; // default is true
+  reauth_token?: string;
+  setOpenWidget: (v: boolean) => void;
+  openWidget: boolean;
 }
 
 interface WebviewMessage {
@@ -16,12 +21,21 @@ interface MonoConnectRefObj {
 }
 
 interface MonoConnectButtonProps {
-  code?: string;
+  reauth_token?: string;
+}
+
+interface MonoProviderProps{
+  children: ReactNode;
+  publicKey: string;
+  onClose: () => void;
+  onSuccess: (data: {id: string}) => void;
+  reauth_token?: string;
 }
 
 export {
   WebviewMessage,
   MonoConnectProps,
   MonoConnectRefObj,
-  MonoConnectButtonProps
+  MonoConnectButtonProps,
+  MonoProviderProps
 }
