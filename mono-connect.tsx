@@ -2,19 +2,19 @@ import React from 'react';
 import {SafeAreaView, Modal, View, Text, StyleSheet, TouchableOpacity, ActivityIndicator} from 'react-native';
 import { WebView } from 'react-native-webview';
 import { MonoConnectProps, WebviewMessage } from './types';
+import { createUrl } from './utils';
 
 const MonoConnect: React.FC<MonoConnectProps> = (props) => {
   const { publicKey, onClose, onSuccess, openWidget, ...otherConfig } = props;
   const connect_url = React.useMemo(() => {
-    let base = "https://connect.withmono.com/?";
-    const qs: any = {key: publicKey, code: otherConfig.reauth_token};
-    Object.keys(qs).map(function (k) {
-      if (qs[k]) {
-        base = base.concat(`${k}=${qs[k]}&`)
-      }
-    });
+    const qs: any = {
+      key: publicKey, 
+      code: otherConfig.reauth_token,
+      scope: otherConfig?.scope,
+      data: otherConfig?.data,
+    };
 
-    return base.slice(0, -1);
+    return createUrl(qs);
   }, [otherConfig.reauth_token, publicKey])
 
   function handleMessage(message: string) {

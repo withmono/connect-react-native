@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-interface MonoConnectProps {
+interface MonoConnectProps extends DataConfig {
   publicKey: string;
   onClose: () => void;
   onSuccess: (data: {id: string}) => void;
@@ -24,7 +24,7 @@ interface MonoConnectButtonProps {
   reauth_token?: string;
 }
 
-interface MonoProviderProps{
+interface MonoProviderProps extends DataConfig {
   children: ReactNode;
   publicKey: string;
   onClose: () => void;
@@ -32,10 +32,27 @@ interface MonoProviderProps{
   reauth_token?: string;
 }
 
+interface PaymentScopeData {
+  type: string; // "one-time-debit" | "recurring-debit"
+  amount: number; // in kobo
+  description: string;
+  plan?: string;
+  currency?: string;
+  period?: string;
+  reference?: string;
+  [key: string]: any;
+}
+
+interface DataConfig {
+  scope?: string;
+  data?: PaymentScopeData | null | undefined;
+}
+
 export {
   WebviewMessage,
   MonoConnectProps,
   MonoConnectRefObj,
   MonoConnectButtonProps,
-  MonoProviderProps
+  MonoProviderProps,
+  DataConfig
 }

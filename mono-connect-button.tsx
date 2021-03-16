@@ -13,7 +13,7 @@ import useMonoConnect from './use-mono-connect';
 
 const MonoConnectButton: React.FC<MonoConnectButtonProps> = (props) => {
   const { reauth_token } = props;
-  const { init, reauthorise } = useMonoConnect()
+  const { init, reauthorise, scope } = useMonoConnect()
   let Btn: React.ComponentType<any>;
   
   function onPress() {
@@ -36,7 +36,9 @@ const MonoConnectButton: React.FC<MonoConnectButtonProps> = (props) => {
                 width={5} 
                 height={5} 
                 style={styles.buttonIcon} />
-              <Text style={styles.label}>Authenticate with Mono</Text>
+              <Text style={styles.label}>
+                {scope === "payments" ? "Pay with Mono" : "Authenticate with Mono"}
+              </Text>
           </View>
       </Btn>
   );

@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-interface MonoConnectProps {
+interface MonoConnectProps extends DataConfig {
     publicKey: string;
     onClose: () => void;
     onSuccess: (data: {
@@ -21,7 +21,7 @@ interface MonoConnectRefObj {
 interface MonoConnectButtonProps {
     reauth_token?: string;
 }
-interface MonoProviderProps {
+interface MonoProviderProps extends DataConfig {
     children: ReactNode;
     publicKey: string;
     onClose: () => void;
@@ -30,4 +30,18 @@ interface MonoProviderProps {
     }) => void;
     reauth_token?: string;
 }
-export { WebviewMessage, MonoConnectProps, MonoConnectRefObj, MonoConnectButtonProps, MonoProviderProps };
+interface PaymentScopeData {
+    type: string;
+    amount: number;
+    description: string;
+    plan?: string;
+    currency?: string;
+    period?: string;
+    reference?: string;
+    [key: string]: any;
+}
+interface DataConfig {
+    scope?: string;
+    data?: PaymentScopeData | null | undefined;
+}
+export { WebviewMessage, MonoConnectProps, MonoConnectRefObj, MonoConnectButtonProps, MonoProviderProps, DataConfig };
