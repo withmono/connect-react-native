@@ -5,6 +5,7 @@ import { MonoProviderProps } from './types';
 export interface MonoContextType {
   init: () => void
   reauthorise: (reauth_code: string) => void;
+  scope?: string;
 }
 
 export const MonoContext = React.createContext<MonoContextType>({
@@ -27,11 +28,11 @@ function MonoProvider(props: MonoProviderProps) {
   }
 
   return (
-    <MonoContext.Provider value={{init, reauthorise}}>
+    <MonoContext.Provider value={{init, reauthorise, scope: props?.scope}}>
       <MonoConnect {...{
         openWidget, 
         setOpenWidget,
-        reauth_token: reauthToken, 
+        reauth_token: reauthToken,
         ...props
       }} />
         {props.children}

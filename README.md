@@ -59,15 +59,44 @@ function ReauthoriseUserAccount({reauth_token}) {
   )
 }
 
+function InitiateDirectDebit() {
+  const { init } = useMonoConnect();
+
+  return (
+    <View style={{marginBottom: 10}}>
+      <TouchableOpacity onPress={() => init()}>
+        <Text style={{color: 'blue'}}>Initiate Mono Direct debit</Text>
+      </TouchableOpacity>
+    </View>
+  )
+}
+
 export default function App() {
   const reauth_token = "code_xyz";
+  const payConfig = {
+    scope: "payments",
+    data: {
+      type: "one-time-debit", // "one-time-debit" | "recurring-debit"
+      amount: 250000, // amount in kobo
+      description: "Wallet funding",
+      plan: "plan-234", // only for recurring payment
+      currency: "NGN", // (optional) default to NGN
+      period: "monthly", // only for recurring payment
+      reference: "mono_r27bn0he820e", // optional 
+    }
+  }
 
   return (
     <MonoProvider {...config}>
       <View style={styles.container}>
         <LinkAccount />
+
+        <MonoProvider {...{...config, ...payConfig}}>
+          <InitiateDirectDebit />
+        </MonoProvider>
+
+        <ReauthoriseUserAccount reauth_token={reauth_token} />
       </View>
-      <ReauthoriseUserAccount reauth_token={reauth_token} />
     </MonoProvider>
   );
 }
