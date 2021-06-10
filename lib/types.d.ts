@@ -9,6 +9,22 @@ interface MonoConnectProps extends DataConfig {
     reauth_token?: string;
     setOpenWidget: (v: boolean) => void;
     openWidget: boolean;
+    onEvent: (eventName: string, data: {
+        reference?: string;
+        pageName?: string;
+        prevAuthMethod?: string;
+        authMethod?: string;
+        mfaType?: string;
+        selectedAccountsCount?: number;
+        errorType?: string;
+        errorMessage?: string;
+        institution?: {
+            id: string;
+            name: string;
+        };
+        timestamp: number;
+    }) => void;
+    reference?: string;
 }
 interface WebviewMessage {
     type: string;
@@ -29,6 +45,22 @@ interface MonoProviderProps extends DataConfig {
         id: string;
     }) => void;
     reauth_token?: string;
+    onEvent: (eventName: string, data: {
+        reference?: string;
+        pageName?: string;
+        prevAuthMethod?: string;
+        authMethod?: string;
+        mfaType?: string;
+        selectedAccountsCount?: number;
+        errorType?: string;
+        errorMessage?: string;
+        institution?: {
+            id: string;
+            name: string;
+        };
+        timestamp: number;
+    }) => void;
+    reference?: string;
 }
 interface PaymentScopeData {
     type: string;
