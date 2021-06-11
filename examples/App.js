@@ -12,7 +12,8 @@ const config = {
   onEvent: (eventName, data) => {
     console.log(eventName);
     console.log(data);
-  }
+  },
+  reference: 'test_ref'
 }
 
 function LinkAccount() {
