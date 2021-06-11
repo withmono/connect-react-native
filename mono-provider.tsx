@@ -30,7 +30,7 @@ function MonoProvider(props: MonoProviderProps) {
   return (
     <MonoContext.Provider value={{init, reauthorise, scope: props?.scope}}>
       <MonoConnect {...{
-        openWidget, 
+        openWidget,
         setOpenWidget,
         reauth_token: reauthToken,
         ...props
