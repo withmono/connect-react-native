@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { MonoConnectButton, MonoProvider, useMonoConnect } from '@mono.co/connect-react-native';
 
 const config = {
-  publicKey: "test_pk_RZgJjkjTKYMiuG3smlQu",
+  publicKey: "test_pk_...",
   onClose: () => console.log('Widget closed'),
   onSuccess: (data) => {
     const code = data.getAuthCode()
