@@ -1,30 +1,6 @@
 import { ReactNode } from "react";
 
-interface MonoConnectProps extends DataConfig {
-  publicKey: string;
-  onClose: () => void;
-  onSuccess: (data: {id: string}) => void;
-  live?: boolean; // default is true
-  reauth_token?: string;
-  setOpenWidget: (v: boolean) => void;
-  openWidget: boolean;
-  onEvent: (eventName: string, data: {
-    reference?: string;
-    pageName?: string;
-    prevAuthMethod?: string;
-    authMethod?: string;
-    mfaType?: string;
-    selectedAccountsCount?: number;
-    errorType?: string;
-    errorMessage?: string;
-    institution?: {
-      id: string;
-      name: string;
-    };
-    timestamp: number;
-  }) => void;
-  reference?: string;
-}
+type Nullable<T> = T | null;
 
 interface WebviewMessage {
   type: string;
@@ -46,21 +22,7 @@ interface MonoProviderProps extends DataConfig {
   onClose: () => void;
   onSuccess: (data: {id: string}) => void;
   reauth_token?: string;
-  onEvent: (eventName: string, data: {
-    reference?: string;
-    pageName?: string;
-    prevAuthMethod?: string;
-    authMethod?: string;
-    mfaType?: string;
-    selectedAccountsCount?: number;
-    errorType?: string;
-    errorMessage?: string;
-    institution?: {
-      id: string;
-      name: string;
-    };
-    timestamp: number;
-  }) => void;
+  onEvent: (eventName: string, data: MonoEventData) => void;
   reference?: string;
 }
 
@@ -80,11 +42,40 @@ interface DataConfig {
   data?: PaymentScopeData | null | undefined;
 }
 
+interface MonoEventData {
+  reference?: string,
+  errorType?: string,
+  errorMessage?: string,
+  mfaType?: string,
+  prevAuthMethod?: string,
+  authMethod?: string,
+  pageName?: string,
+  selectedAccountsCount?: number,
+  institution?: {
+    id?: string,
+    name?: string
+  },
+  timestamp?: number
+}
+
+interface MonoConnectProps extends DataConfig {
+  publicKey: string;
+  onClose: () => void;
+  onSuccess: (data: {id: string}) => void;
+  live?: boolean; // default is true
+  reauth_token?: string;
+  setOpenWidget: (v: boolean) => void;
+  openWidget: boolean;
+  onEvent?: (eventName: string, data: MonoEventData) => void;
+  reference?: string;
+}
+
 export {
   WebviewMessage,
   MonoConnectProps,
   MonoConnectRefObj,
   MonoConnectButtonProps,
   MonoProviderProps,
-  DataConfig
+  DataConfig,
+  MonoEventData
 }

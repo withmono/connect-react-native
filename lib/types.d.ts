@@ -1,31 +1,4 @@
 import { ReactNode } from "react";
-interface MonoConnectProps extends DataConfig {
-    publicKey: string;
-    onClose: () => void;
-    onSuccess: (data: {
-        id: string;
-    }) => void;
-    live?: boolean;
-    reauth_token?: string;
-    setOpenWidget: (v: boolean) => void;
-    openWidget: boolean;
-    onEvent: (eventName: string, data: {
-        reference?: string;
-        pageName?: string;
-        prevAuthMethod?: string;
-        authMethod?: string;
-        mfaType?: string;
-        selectedAccountsCount?: number;
-        errorType?: string;
-        errorMessage?: string;
-        institution?: {
-            id: string;
-            name: string;
-        };
-        timestamp: number;
-    }) => void;
-    reference?: string;
-}
 interface WebviewMessage {
     type: string;
     data: any;
@@ -45,21 +18,7 @@ interface MonoProviderProps extends DataConfig {
         id: string;
     }) => void;
     reauth_token?: string;
-    onEvent: (eventName: string, data: {
-        reference?: string;
-        pageName?: string;
-        prevAuthMethod?: string;
-        authMethod?: string;
-        mfaType?: string;
-        selectedAccountsCount?: number;
-        errorType?: string;
-        errorMessage?: string;
-        institution?: {
-            id: string;
-            name: string;
-        };
-        timestamp: number;
-    }) => void;
+    onEvent: (eventName: string, data: MonoEventData) => void;
     reference?: string;
 }
 interface PaymentScopeData {
@@ -76,4 +35,32 @@ interface DataConfig {
     scope?: string;
     data?: PaymentScopeData | null | undefined;
 }
-export { WebviewMessage, MonoConnectProps, MonoConnectRefObj, MonoConnectButtonProps, MonoProviderProps, DataConfig };
+interface MonoEventData {
+    reference?: string;
+    errorType?: string;
+    errorMessage?: string;
+    mfaType?: string;
+    prevAuthMethod?: string;
+    authMethod?: string;
+    pageName?: string;
+    selectedAccountsCount?: number;
+    institution?: {
+        id?: string;
+        name?: string;
+    };
+    timestamp?: number;
+}
+interface MonoConnectProps extends DataConfig {
+    publicKey: string;
+    onClose: () => void;
+    onSuccess: (data: {
+        id: string;
+    }) => void;
+    live?: boolean;
+    reauth_token?: string;
+    setOpenWidget: (v: boolean) => void;
+    openWidget: boolean;
+    onEvent?: (eventName: string, data: MonoEventData) => void;
+    reference?: string;
+}
+export { WebviewMessage, MonoConnectProps, MonoConnectRefObj, MonoConnectButtonProps, MonoProviderProps, DataConfig, MonoEventData };

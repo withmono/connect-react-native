@@ -1,7 +1,7 @@
 import React from 'react';
 import {SafeAreaView, Modal, View, Text, StyleSheet, TouchableOpacity, ActivityIndicator} from 'react-native';
 import { WebView } from 'react-native-webview';
-import { MonoConnectProps, WebviewMessage } from './types';
+import { MonoConnectProps, WebviewMessage, MonoEventData } from './types';
 import { createUrl } from './utils';
 
 const MonoConnect: React.FC<MonoConnectProps> = (props) => {
@@ -14,14 +14,16 @@ const MonoConnect: React.FC<MonoConnectProps> = (props) => {
       data: otherConfig?.data,
       reference: otherConfig?.reference,
       version: '2021-06-03',
+      ...otherConfig
     };
-
     return createUrl(qs);
   }, [otherConfig.reauth_token, publicKey, otherConfig.reference])
 
   function handleMessage(message: string) {
     const { setOpenWidget } = otherConfig;
     const response: WebviewMessage = JSON.parse(message);
+
+    const eventData: MonoEventData = response.data;
 
     switch(response.type) {
       /* Old callbacks */
@@ -35,33 +37,32 @@ const MonoConnect: React.FC<MonoConnectProps> = (props) => {
         onClose();
         break;
       /* New onEvent callbacks */
-      /* LOADED event is not triggered here, look in utils.js */
       case "mono.connect.widget_opened":
-        onEvent('OPENED', response.data);
+        if (onEvent) onEvent('OPENED', eventData);
         break;
       case "mono.connect.error_occured":
-        onEvent('ERROR', response.data);
+        if (onEvent) onEvent('ERROR', eventData);
         break;
       case "mono.connect.institution_selected":
-        onEvent('INSTITUTION_SELECTED', response.data);
+        if (onEvent) onEvent('INSTITUTION_SELECTED', eventData);
         break;
       case "mono.connect.auth_method_switched":
-        onEvent('AUTH_METHOD_SWITCHED', response.data);
+        if (onEvent) onEvent('AUTH_METHOD_SWITCHED', eventData);
         break;
       case "mono.connect.on_exit":
-        onEvent('EXIT', response.data);
+        if (onEvent) onEvent('EXIT', eventData);
         break;
       case "mono.connect.login_attempt":
-        onEvent('SUBMIT_CREDENTIALS', response.data);
+        if (onEvent) onEvent('SUBMIT_CREDENTIALS', eventData);
         break;
       case "mono.connect.mfa_submitted":
-        onEvent('SUBMIT_MFA', response.data);
+        if (onEvent) onEvent('SUBMIT_MFA', eventData);
         break;
       case "mono.connect.account_linked":
-        onEvent('ACCOUNT_LINKED', response.data);
+        if (onEvent) onEvent('ACCOUNT_LINKED', eventData);
         break;
       case "mono.connect.account_selected":
-        onEvent('ACCOUNT_SELECTED', response.data);
+        if (onEvent) onEvent('ACCOUNT_SELECTED', eventData);
         break;
     }
   }
