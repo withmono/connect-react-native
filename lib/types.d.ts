@@ -36,6 +36,7 @@ interface DataConfig {
     data?: PaymentScopeData | null | undefined;
 }
 interface MonoEventData {
+    code?: string;
     reference?: string;
     errorType?: string;
     errorMessage?: string;

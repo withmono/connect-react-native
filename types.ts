@@ -43,6 +43,7 @@ interface DataConfig {
 }
 
 interface MonoEventData {
+  code?: string,
   reference?: string,
   errorType?: string,
   errorMessage?: string,

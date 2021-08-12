@@ -30,7 +30,7 @@ Also install ```react-native-webview``` because it's a peer dependency for this 
 
 ## Usage
 
-Before you can open Mono Connect, you need to first create a `publicKey`. Your `publicKey` can be found in the [Mono Dashboard](https://app.withmono.com/apps). 
+Before you can open Mono Connect, you need to first create a `publicKey`. Your `publicKey` can be found in the [Mono Dashboard](https://app.withmono.com/apps).
 
 
 ### Hooks
@@ -100,7 +100,7 @@ export default function App() {
       plan: "plan-234", // only for recurring payment
       currency: "NGN", // (optional) default to NGN
       period: "monthly", // only for recurring payment
-      reference: "mono_r27bn0he820e", // optional 
+      reference: "mono_r27bn0he820e", // optional
     }
   }
 
@@ -207,7 +207,7 @@ const config = {
     const code = data.getAuthCode()
     console.log("Access code", code)
   },
-  onEvent: (eventName, data) => { 
+  onEvent: (eventName, data) => {
     console.log(eventName)
     console.log(data)
   }
@@ -241,6 +241,7 @@ Event names corespond to the type of event that occurred. Possible options are i
 | ----------- | ----------- |
 | OPENED | Triggered when the user opens the Connect Widget. |
 | EXIT | Triggered when the user closes the Connect Widget. |
+| SUCCESS | Triggered when the user successfully links their account and provides the code for autentication. |
 | INSTITUTION_SELECTED | Triggered when the user selects an institution. |
 | AUTH_METHOD_SWITCHED | Triggered when the user changes authentication method from internet to mobile banking, or vice versa. |
 | SUBMIT_CREDENTIALS | Triggered when the user presses Log in. |
@@ -250,7 +251,7 @@ Event names corespond to the type of event that occurred. Possible options are i
 
 
 #### <a name="dataObject"></a> `data: JSON`
-The data JSON returned from the onEvent callback. 
+The data JSON returned from the onEvent callback.
 
 ```java
 reference: String // reference passed through the connect config
@@ -281,8 +282,3 @@ If you would like to contribute to the Mono Connect React Native SDK, please mak
 ## License
 
 [MIT](https://github.com/withmono/connect-react-native/tree/develop/LICENSE) for more information.
-
-
-
-
-
