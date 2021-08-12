@@ -2,7 +2,7 @@ function createUrl(qs: any) {
   let base = "https://connect.withmono.com/?";
 
   const valid = validate(qs);
-  
+
   if(valid) {
     Object.keys(qs).map(function (k) {
       if (qs[k]) {

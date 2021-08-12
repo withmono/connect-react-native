@@ -1,8 +1,8 @@
 import React from 'react';
 import {
-  Platform, 
-  View, 
-  TouchableOpacity, 
+  Platform,
+  View,
+  TouchableOpacity,
   TouchableNativeFeedback,
   StyleSheet,
   Text,
@@ -15,7 +15,7 @@ const MonoConnectButton: React.FC<MonoConnectButtonProps> = (props) => {
   const { reauth_token } = props;
   const { init, reauthorise, scope } = useMonoConnect()
   let Btn: React.ComponentType<any>;
-  
+
   function onPress() {
     if(reauth_token) return reauthorise(reauth_token);
 
@@ -31,10 +31,10 @@ const MonoConnectButton: React.FC<MonoConnectButtonProps> = (props) => {
   return (
       <Btn {...{onPress, style: {width: '100%'}}}>
           <View style={styles.button}>
-              <Image 
-                source={require('./logo.png')} 
-                width={5} 
-                height={5} 
+              <Image
+                source={require('./logo.png')}
+                width={5}
+                height={5}
                 style={styles.buttonIcon} />
               <Text style={styles.label}>
                 {scope === "payments" ? "Pay with Mono" : "Authenticate with Mono"}

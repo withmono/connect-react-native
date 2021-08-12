@@ -7,7 +7,7 @@
     "example": "example"
   },
   "scripts": {
-    "build": "tsc --project ./tsconfig.json && copyfiles *.png lib/"
+    "build": "rm -r lib && tsc --project ./tsconfig.json && copyfiles *.png lib/"
   },
   "dependencies": {
     "react-native-webview": ">=6.0.2"
