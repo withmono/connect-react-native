@@ -94,13 +94,7 @@ export default function App() {
   const payConfig = {
     scope: "payments",
     data: {
-      type: "one-time-debit", // "one-time-debit" | "recurring-debit"
-      amount: 250000, // amount in kobo
-      description: "Wallet funding",
-      plan: "plan-234", // only for recurring payment
-      currency: "NGN", // (optional) default to NGN
-      period: "monthly", // only for recurring payment
-      reference: "mono_r27bn0he820e", // optional
+         payment_id: "txreq_HeqMWnpWVvzdpMXiB4I123456" // The `id` property returned from the Initiate Payments API response object.
     }
   }
 
