@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@mono.co/connect-react-native": "^0.1.0",
-    "expo": "^42.0.0",
+    "expo": "^46.0.15",
     "expo-status-bar": "~1.0.4",
     "react": "16.13.1",
     "react-dom": "16.13.1",
