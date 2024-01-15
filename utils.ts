@@ -1,5 +1,5 @@
 function createUrl(qs: any) {
-  let base = "https://connect.mono.com/?";
+  let base = "https://connect.mono.co/?";
 
   const valid = validate(qs);
 
