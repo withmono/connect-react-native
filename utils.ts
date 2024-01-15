@@ -27,8 +27,8 @@ function validate(config: any) {
 }
 
 function validatePaymentsData(data: any) {
-  data = {amount: undefined, type: undefined, ...data};
-  const requiredFields = ["amount", "type"];
+  data = {payment_id: undefined,...data};
+  const requiredFields = ["payment_id"];
   for(let param in data) {
     if(requiredFields.includes(param)) {
       checkRequiredParam(param, data[param]);
