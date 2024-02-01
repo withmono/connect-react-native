@@ -6,7 +6,7 @@ const config = {
   publicKey: "test_pk_...",
   scope: 'auth',
   data: {
-
+    customer: { id: 'mono_customer_id' }
   },
   onClose: () => console.log('Widget closed'),
   onSuccess: (data) => {
