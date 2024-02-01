@@ -3,12 +3,21 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { MonoConnectButton, MonoProvider, useMonoConnect } from '@mono.co/connect-react-native';
 
 const config = {
-  publicKey: "",
+  publicKey: "test_pk_...",
+  scope: 'auth',
+  data: {
+    customer: { id: 'mono_customer_id' }
+  },
   onClose: () => console.log('Widget closed'),
   onSuccess: (data) => {
     const code = data.getAuthCode()
     console.log("Access code", code)
-  }
+  },
+  onEvent: (eventName, data) => {
+    console.log(eventName);
+    console.log(data);
+  },
+  reference: 'test_ref'
 }
 
 function LinkAccount() {
@@ -32,7 +41,7 @@ export default function App() {
         </Text>
 
         <LinkAccount />
-        
+
         <MonoConnectButton />
       </View>
     </MonoProvider>
