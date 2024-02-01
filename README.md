@@ -49,6 +49,10 @@ import { MonoProvider, useMonoConnect } from '@mono.co/connect-react-native';
 
 const config = {
   publicKey: "YOUR_MONO_PUBLIC_KEY_HERE",
+  scope: 'auth',
+  data: {
+    customer: {id: "mono_customer_id"}
+  },
   onClose: () => alert('Widget closed'),
   onSuccess: (data) => {
     const code = data.getAuthCode()
@@ -150,6 +154,7 @@ export default function App() {
 ## Configuration Options
 
 - [`publicKey`](#publicKey)
+- [`customer`](#customer)
 - [`onSuccess`](#onSuccess)
 - [`onClose`](#onClose)
 - [`onEvent`](#onEvent)
@@ -162,6 +167,30 @@ export default function App() {
 
 This is your Mono public API key from the [Mono dashboard](https://app.withmono.com/apps).
 
+### <a name="customer"></a> `Customer`
+
+**Required**  
+
+```js
+// you can pass id of an existing mono customer
+// const customer = { id: '611aa53041247f2801efb222' } // mono customer id
+
+// or create a new mono customer
+const customer = {
+  name: 'Samuel Olumide',
+  email: 'samuel.olumide@gmail.com',
+  identity: {
+    type: 'bvn',
+    number: '2323233239'
+  },
+}
+
+const config = { 
+  key: 'mono_public_key',
+  scope: 'auth',
+  data: { customer },
+};
+```
 
 ### <a name="onSuccess"></a> `onSuccess`
 **(data) => { Void }: Required**
@@ -171,6 +200,7 @@ The closure is called when a user has successfully onboarded their account. It s
 ```js
 const config = {
   publicKey: "YOUR_MONO_PUBLIC_KEY_HERE",
+  scope: 'auth',
   onSuccess: (data) => {
     const code = data.getAuthCode()
     console.log("Access code", code)
@@ -187,6 +217,7 @@ The optional closure is called when a user has specifically exited the Mono Conn
 ```js
 const config = {
   publicKey: "YOUR_MONO_PUBLIC_KEY_HERE",
+  scope: 'auth',
   onSuccess: (data) => {
     const code = data.getAuthCode()
     console.log("Access code", code)
@@ -205,6 +236,7 @@ See the [event details](#connectEvent) below.
 ```js
 const config = {
   publicKey: "YOUR_MONO_PUBLIC_KEY_HERE",
+  scope: 'auth',
   onSuccess: (data) => {
     const code = data.getAuthCode()
     console.log("Access code", code)
@@ -224,6 +256,7 @@ When passing a reference to the configuration it will be passed back on all onEv
 ```js
 const config = {
   publicKey: "YOUR_MONO_PUBLIC_KEY_HERE",
+  scope: 'auth',
   onSuccess: (data) => {
     const code = data.getAuthCode()
     console.log("Access code", code)
@@ -255,7 +288,7 @@ Event names corespond to the type of event that occurred. Possible options are i
 #### <a name="dataObject"></a> `data: JSON`
 The data JSON returned from the onEvent callback.
 
-```java
+```js
 reference: String // reference passed through the connect config
 pageName: String // name of page the widget exited on
 prevAuthMethod: String // auth method before it was last changed

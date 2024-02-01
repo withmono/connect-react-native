@@ -4,6 +4,10 @@ import { MonoConnectButton, MonoProvider, useMonoConnect } from '@mono.co/connec
 
 const config = {
   publicKey: "test_pk_...",
+  scope: 'auth',
+  data: {
+
+  },
   onClose: () => console.log('Widget closed'),
   onSuccess: (data) => {
     const code = data.getAuthCode()
