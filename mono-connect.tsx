@@ -13,7 +13,7 @@ const MonoConnect: React.FC<MonoConnectProps> = (props) => {
       scope: otherConfig?.scope,
       data: otherConfig?.data,
       reference: otherConfig?.reference,
-      version: '2021-06-03',
+      version: '2023-12-14',
       ...otherConfig
     };
     return createUrl(qs);
@@ -27,6 +27,7 @@ const MonoConnect: React.FC<MonoConnectProps> = (props) => {
 
     switch(response.type) {
       /* Old callbacks */
+      case "mono.connect.widget.charge_complete":
       case "mono.connect.widget.account_linked":
         const data = response.data;
         onSuccess({...data, getAuthCode: () => data.code});

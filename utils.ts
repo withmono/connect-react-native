@@ -1,12 +1,12 @@
 function createUrl(qs: any) {
-  let base = "https://connect.withmono.com/?";
+  let base = "https://connect.mono.co/?";
 
   const valid = validate(qs);
 
   if(valid) {
     Object.keys(qs).map(function (k) {
       if (qs[k]) {
-        const value = k === "data" ? encodeURIComponent(JSON.stringify(qs[k])) : qs[k];
+        const value = k === "data" ? JSON.stringify(qs[k]) : qs[k];
         base = base.concat(`${k}=${value}&`);
       }
     });
@@ -27,8 +27,8 @@ function validate(config: any) {
 }
 
 function validatePaymentsData(data: any) {
-  data = {amount: undefined, type: undefined, ...data};
-  const requiredFields = ["amount", "type"];
+  data = {payment_id: undefined,...data};
+  const requiredFields = ["payment_id"];
   for(let param in data) {
     if(requiredFields.includes(param)) {
       checkRequiredParam(param, data[param]);
