@@ -106,7 +106,7 @@ export default function App() {
   const payConfig = {
     scope: "payments",
     data: {
-         payment_id: "txreq_HeqMWnpWVvzdpMXiB4I123456" // The `id` property returned from the Initiate Payments API response object.
+      payment_id: "txreq_HeqMWnpWVvzdpMXiB4I123456" // The `id` property returned from the Initiate Payments API response object.
     }
   }
 
@@ -124,6 +124,16 @@ export default function App() {
     </MonoProvider>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 20
+  },
+});
 ```
 
 ### Components
@@ -135,6 +145,8 @@ import { MonoConnectButton, MonoProvider } from '@mono.co/connect-react-native';
 
 const config = {
   publicKey: "YOUR_MONO_PUBLIC_KEY",
+  scope: "auth",
+  customer: {id: "mono_customer_id"},
   onClose: () => alert('Widget closed'),
   onSuccess: (data) => console.log(data)
 }
@@ -154,6 +166,7 @@ export default function App() {
 ## Configuration Options
 
 - [`publicKey`](#publicKey)
+- [`scope`](#scope)
 - [`customer`](#customer)
 - [`onSuccess`](#onSuccess)
 - [`onClose`](#onClose)
@@ -166,6 +179,11 @@ export default function App() {
 **String: Required**
 
 This is your Mono public API key from the [Mono dashboard](https://app.withmono.com/apps).
+
+### <a name="scope"></a> `scope`
+**String: Required**
+
+This is the scope the widget will launch with. This can either be `auth` or `payments`
 
 ### <a name="customer"></a> `Customer`
 
@@ -201,6 +219,9 @@ The closure is called when a user has successfully onboarded their account. It s
 const config = {
   publicKey: "YOUR_MONO_PUBLIC_KEY_HERE",
   scope: 'auth',
+  data: {
+    customer: {id: "mono_customer_id"}
+  },
   onSuccess: (data) => {
     const code = data.getAuthCode()
     console.log("Access code", code)
@@ -218,6 +239,9 @@ The optional closure is called when a user has specifically exited the Mono Conn
 const config = {
   publicKey: "YOUR_MONO_PUBLIC_KEY_HERE",
   scope: 'auth',
+  data: {
+    customer: {id: "mono_customer_id"}
+  },
   onSuccess: (data) => {
     const code = data.getAuthCode()
     console.log("Access code", code)
@@ -237,6 +261,9 @@ See the [event details](#connectEvent) below.
 const config = {
   publicKey: "YOUR_MONO_PUBLIC_KEY_HERE",
   scope: 'auth',
+  data: {
+    customer: {id: "mono_customer_id"}
+  },
   onSuccess: (data) => {
     const code = data.getAuthCode()
     console.log("Access code", code)
@@ -257,6 +284,9 @@ When passing a reference to the configuration it will be passed back on all onEv
 const config = {
   publicKey: "YOUR_MONO_PUBLIC_KEY_HERE",
   scope: 'auth',
+  data: {
+    customer: {id: "mono_customer_id"}
+  },
   onSuccess: (data) => {
     const code = data.getAuthCode()
     console.log("Access code", code)

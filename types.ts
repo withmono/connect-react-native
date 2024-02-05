@@ -37,9 +37,14 @@ interface PaymentScopeData {
   [key: string]: any;
 }
 
+interface DataDetails {
+    customer?: any;
+    payment_id?: any;
+}
+
 interface DataConfig {
   scope?: string;
-  data?: PaymentScopeData | null | undefined;
+  data?: PaymentScopeData | DataDetails | null | undefined;
 }
 
 interface MonoEventData {
