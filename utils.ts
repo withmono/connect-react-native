@@ -6,7 +6,7 @@ function createUrl(qs: any) {
   if(valid) {
     Object.keys(qs).map(function (k) {
       if (qs[k]) {
-        const value = k === "data" ? JSON.stringify(qs[k]) : qs[k];
+        const value = typeof(qs[k]) === "object" ? JSON.stringify(qs[k]) : qs[k];
         base = base.concat(`${k}=${value}&`);
       }
     });
