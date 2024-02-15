@@ -4,13 +4,8 @@ The Mono Connect SDK is a quick and secure way to link bank accounts to Mono fro
 
 For accessing customer accounts and interacting with Mono's API (Identity, Transactions, Income, TransferPay) use the server-side [Mono API](https://docs.mono.co/docs/intro-to-mono-api).
 
-## Version 2.0.0 Public Beta
-<b>Important</b>: Version 2.0.0 is currently in the public beta phase. This means it's available for testing and feedback from the community. Please be aware that there may be bugs, and some features might undergo changes before the stable release.
-### How to Install the Beta Version
-To try out the beta version, use the following command:
-```bash
-npm install @mono.co/connect-react-native@2.0.0
-```
+## Version 2 Public Beta
+<b>Important</b>: Version 2 is currently in the public beta phase. This means it's available for testing and feedback from the community. Please be aware that there may be bugs, and some features might undergo changes before the stable release.
 
 ## Documentation
 
@@ -190,10 +185,11 @@ This is the scope the widget will launch with. This can either be `auth` or `pay
 **Required**  
 
 ```js
-// you can pass id of an existing mono customer
-// const customer = { id: '611aa53041247f2801efb222' } // mono customer id
+// For an existing customer, their customer ID can be passed directly
+const customer = { id: '611aa53041247f2801efb222' } // mono customer id
 
-// or create a new mono customer
+// If you don't have an existing customer, you can create one by providing their details.
+// The customer will be created after the account connection is successful.
 const customer = {
   name: 'Samuel Olumide',
   email: 'samuel.olumide@gmail.com',
