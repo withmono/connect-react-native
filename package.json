@@ -1,6 +1,6 @@
 {
   "name": "@mono.co/connect-react-native",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Easily add mono connect widget to your react-native app and get access to users' financial data.",
   "main": "lib/index.js",
   "directories": {

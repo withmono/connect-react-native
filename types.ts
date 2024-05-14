@@ -22,7 +22,7 @@ interface MonoProviderProps extends DataConfig {
   onClose: () => void;
   onSuccess: (data: {id: string}) => void;
   reauth_token?: string;
-  onEvent: (eventName: string, data: MonoEventData) => void;
+  onEvent?: (eventName: string, data: MonoEventData) => void;
   reference?: string;
 }
 
@@ -74,6 +74,7 @@ interface MonoConnectProps extends DataConfig {
   openWidget: boolean;
   onEvent?: (eventName: string, data: MonoEventData) => void;
   reference?: string;
+  children?: any
 }
 
 export {

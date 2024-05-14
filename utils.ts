@@ -4,27 +4,11 @@ function createUrl(qs: any) {
   const valid = validate(qs);
 
   if(valid) {
-    Object.keys(qs).map(function (k) {
-      if (qs[k]) {
-        const value = typeof(qs[k]) === "object" ? JSON.stringify(removeCircularReferences(qs[k])) : qs[k];
-
-        function removeCircularReferences(obj: any) {
-          const seen = new WeakSet();
-          return JSON.parse(JSON.stringify(obj, (key, value) => {
-            if (typeof value === 'object' && value !== null) {
-              if (seen.has(value)) {
-                return; // Remove circular reference
-              }
-              seen.add(value);
-            }
-            return value;
-          }));
-        }
-        
-        base = base.concat(`${k}=${value}&`);
-      }
-    });
-
+    for (const k in qs) {
+      const value = typeof(qs[k]) === "object" ? JSON.stringify(qs[k]) : qs[k];
+      base = base.concat(`${k}=${value}&`);
+    }
+  
     return base.slice(0, -1);
   }
 

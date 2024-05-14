@@ -5,7 +5,7 @@ import { MonoConnectProps, WebviewMessage, MonoEventData } from './types';
 import { createUrl } from './utils';
 
 const MonoConnect: React.FC<MonoConnectProps> = (props) => {
-  const { publicKey, onClose, onSuccess, onEvent, openWidget, ...otherConfig } = props;
+  const { publicKey, onClose, onSuccess, onEvent, openWidget, children, ...otherConfig } = props;
   const connect_url = React.useMemo(() => {
     const qs: any = {
       key: publicKey,

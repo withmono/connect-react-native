@@ -27,15 +27,20 @@ function MonoProvider(props: MonoProviderProps) {
     setOpenWidget(true);
   }
 
+  const payload = {
+    openWidget,
+    setOpenWidget,
+    ...props
+  }
+
+  if (reauthToken){
+    payload['reauth_token'] = reauthToken
+  }
+
   return (
     <MonoContext.Provider value={{init, reauthorise, scope: props?.scope}}>
-      <MonoConnect {...{
-        openWidget,
-        setOpenWidget,
-        reauth_token: reauthToken,
-        ...props
-      }} />
-        {props.children}
+      <MonoConnect {...payload} />
+      {props.children}
     </MonoContext.Provider>
   )
 }
