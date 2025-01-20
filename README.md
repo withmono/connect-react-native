@@ -4,9 +4,6 @@ The Mono Connect SDK is a quick and secure way to link bank accounts to Mono fro
 
 For accessing customer accounts and interacting with Mono's API (Identity, Transactions, Income, TransferPay) use the server-side [Mono API](https://docs.mono.co/docs/intro-to-mono-api).
 
-## Version 2 Public Beta
-<b>Important</b>: Version 2 is currently in the public beta phase. This means it's available for testing and feedback from the community. Please be aware that there may be bugs, and some features might undergo changes before the stable release.
-
 ## Documentation
 
 For complete information about Mono Connect, head to the [docs](https://docs.mono.co/docs/intro-to-mono-connect-widget).
@@ -30,6 +27,16 @@ Using yarn
 yarn add @mono.co/connect-react-native
 ```
 Also install ```react-native-webview``` because it's a peer dependency for this package.
+
+## Additional Setup
+### Android
+
+State the camera permission in your `android/app/src/main/AndroidManifest.xml` file.
+
+```xml
+<uses-permission android:name="android.permission.CAMERA"/>
+```
+
 
 ## Usage
 
