@@ -8,7 +8,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "@mono.co/connect-react-native": "^2.0.5",
+    "@mono.co/connect-react-native": "^2.1.0",
     "expo": "^42.0.0",
     "expo-status-bar": "~1.0.4",
     "react": "16.13.1",
