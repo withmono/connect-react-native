@@ -9,15 +9,15 @@ const MonoConnect: React.FC<MonoConnectProps> = (props) => {
   const connect_url = React.useMemo(() => {
     const qs: any = {
       key: publicKey,
-      code: otherConfig.reauth_token,
-      scope: otherConfig?.scope,
-      data: otherConfig?.data,
-      reference: otherConfig?.reference,
+      account: otherConfig.accountId,
+      scope: otherConfig.scope,
+      data: otherConfig.data,
+      reference: otherConfig.reference,
       version: '2023-12-14',
       ...otherConfig
     };
     return createUrl(qs);
-  }, [otherConfig.reauth_token, publicKey, otherConfig.reference])
+  }, [otherConfig.accountId, publicKey, otherConfig.reference]);
 
   function handleMessage(message: string) {
     const { setOpenWidget } = otherConfig;

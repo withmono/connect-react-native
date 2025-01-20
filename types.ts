@@ -1,19 +1,12 @@
 import { ReactNode } from "react";
 
-type Nullable<T> = T | null;
-
 interface WebviewMessage {
   type: string;
   data: any;
 }
 
-interface MonoConnectRefObj {
-  openWidget: () => void;
-  reauthorise: (reauth_code: string) => void;
-}
-
 interface MonoConnectButtonProps {
-  reauth_token?: string;
+  accountId?: string;
 }
 
 interface MonoProviderProps extends DataConfig {
@@ -21,7 +14,7 @@ interface MonoProviderProps extends DataConfig {
   publicKey: string;
   onClose: () => void;
   onSuccess: (data: {id: string}) => void;
-  reauth_token?: string;
+  accountId?: string;
   onEvent?: (eventName: string, data: MonoEventData) => void;
   reference?: string;
 }
@@ -69,7 +62,7 @@ interface MonoConnectProps extends DataConfig {
   onClose: () => void;
   onSuccess: (data: {id: string}) => void;
   live?: boolean; // default is true
-  reauth_token?: string;
+  accountId?: string;
   setOpenWidget: (v: boolean) => void;
   openWidget: boolean;
   onEvent?: (eventName: string, data: MonoEventData) => void;
@@ -80,7 +73,6 @@ interface MonoConnectProps extends DataConfig {
 export {
   WebviewMessage,
   MonoConnectProps,
-  MonoConnectRefObj,
   MonoConnectButtonProps,
   MonoProviderProps,
   DataConfig,

@@ -72,12 +72,12 @@ function LinkAccount() {
   )
 }
 
-function ReauthoriseUserAccount({reauth_token}) {
+function ReauthoriseUserAccount({accountId}) {
   const { reauthorise } = useMonoConnect()
 
   return (
     <View style={{marginBottom: 10}}>
-      <TouchableOpacity onPress={() => reauthorise(reauth_token)}>
+      <TouchableOpacity onPress={() => reauthorise(accountId)}>
         <Text style={{color: 'blue'}}>Reauthorise user account</Text>
       </TouchableOpacity>
     </View>
@@ -97,7 +97,7 @@ function InitiateDirectDebit() {
 }
 
 export default function App() {
-  const reauth_token = "code_xyz";
+  const accountId = "account_xyz";
   const payConfig = {
     scope: "payments",
     data: {
@@ -114,7 +114,7 @@ export default function App() {
           <InitiateDirectDebit />
         </MonoProvider>
 
-        <ReauthoriseUserAccount reauth_token={reauth_token} />
+        <ReauthoriseUserAccount accountId={accountId} />
       </View>
     </MonoProvider>
   );
@@ -151,11 +151,28 @@ export default function App() {
     <MonoProvider {...config}>
       <View style={styles.container}>        
         <MonoConnectButton />
-        <MonoConnectButton reauth_token="code_xyz" /> // for reauthorisation with MonoConnectButton
+        <MonoConnectButton accountId="account_xyz" /> // for reauthorisation with MonoConnectButton
       </View>
     </MonoProvider>
   );
 }
+```
+
+### Re-authorizing an Account with Mono
+#### Fetching Account ID for previously linked account
+
+You can fetch the Account ID of a linked account from the [Mono dashboard](https://app.mono.co/customers).
+
+Alternatively, make an API call to the [Exchange Token Endpoint](https://api.withmono.com/v2/accounts/auth) with the code from a successful linking and your mono application secret key. If successful, this will return an Account ID.
+
+##### Sample request:
+```shell
+curl --request POST \
+  --url https://api.withmono.com/v2/accounts/auth \
+  --header 'Content-Type: application/json' \
+  --header 'accept: application/json' \
+  --header 'mono-sec-key: your_secret_key' \
+  --data '{"code":"string"}'
 ```
 
 ## Configuration Options
@@ -178,7 +195,7 @@ This is your Mono public API key from the [Mono dashboard](https://app.withmono.
 ### <a name="scope"></a> `scope`
 **String: Required**
 
-This is the scope the widget will launch with. This can either be `auth` or `payments`
+This is the scope the widget will launch with. This can be `auth`, `reauth`, or `payments`
 
 ### <a name="customer"></a> `Customer`
 

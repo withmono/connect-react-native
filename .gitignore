@@ -13,6 +13,7 @@ web-build/
 examples/node_modules
 examples/.expo
 examples/.expo-shared
+.idea
 
 # macOS
 .DS_Store
