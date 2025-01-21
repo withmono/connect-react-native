@@ -37,10 +37,11 @@ function MonoProvider(props: MonoProviderProps) {
 
   if (accountId) {
     payload['accountId'] = accountId;
+    payload.scope = REAUTH_SCOPE;
   }
 
   return (
-    <MonoContext.Provider value={{init, reauthorise, scope: accountId ? REAUTH_SCOPE : props?.scope}}>
+    <MonoContext.Provider value={{init, reauthorise, scope: payload.scope}}>
       <MonoConnect {...payload} />
       {props.children}
     </MonoContext.Provider>
