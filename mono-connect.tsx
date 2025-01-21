@@ -9,10 +9,12 @@ const MonoConnect: React.FC<MonoConnectProps> = (props) => {
   const connect_url = React.useMemo(() => {
     const qs: any = {
       key: publicKey,
-      account: otherConfig.accountId,
-      scope: otherConfig.scope,
-      data: otherConfig.data,
-      reference: otherConfig.reference,
+      scope: otherConfig?.scope,
+      data: {
+        ...(otherConfig?.data || {}),
+        ...(otherConfig?.accountId && { account: otherConfig.accountId }),
+      },
+      reference: otherConfig?.reference,
       version: '2023-12-14',
       ...otherConfig
     };

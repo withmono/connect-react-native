@@ -12,7 +12,7 @@ For complete information about Mono Connect, head to the [docs](https://docs.mon
 ## Getting Started
 
 1. Register on the [Mono](https://app.mono.com) website and get your public and secret keys.
-2. Setup a server to [exchange tokens](https://docs.mono.co/api/bank-data/authorisation/exchange-token) to access user financial data with your Mono secret key.
+2. Set up a server to [exchange tokens](https://docs.mono.co/api/bank-data/authorisation/exchange-token) to access user financial data with your Mono secret key.
 
 ## Installation
 Using NPM
@@ -168,7 +168,7 @@ export default function App() {
 ### Re-authorizing an Account with Mono
 #### Fetching Account ID for previously linked account
 
-You can fetch the Account ID of a linked account from the [Mono dashboard](https://app.mono.co/customers).
+You can fetch the Account ID of a linked account from the [Mono dashboard](https://app.mono.co/customers) or [API](https://docs.mono.co/docs/customers).
 
 Alternatively, make an API call to the [Exchange Token Endpoint](https://api.withmono.com/v2/accounts/auth) with the code from a successful linking and your mono application secret key. If successful, this will return an Account ID.
 
