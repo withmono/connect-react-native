@@ -2,17 +2,17 @@
 
 The Mono Connect SDK is a quick and secure way to link bank accounts to Mono from within your React Native app. Mono Connect is a drop-in framework that handles connecting a financial institution to your app (credential validation, multi-factor authentication, error handling, etc).
 
-For accessing customer accounts and interacting with Mono's API (Identity, Transactions, Income, TransferPay) use the server-side [Mono API](https://docs.mono.co/docs/intro-to-mono-api).
+For accessing customer accounts and interacting with Mono's API (Identity, Transactions, Income, TransferPay) use the server-side [Mono API](https://docs.mono.co/api).
 
 ## Documentation
 
-For complete information about Mono Connect, head to the [docs](https://docs.mono.co/docs/intro-to-mono-connect-widget).
+For complete information about Mono Connect, head to the [docs](https://docs.mono.co/docs/financial-data/overview).
 
 
 ## Getting Started
 
-1. Register on the [Mono](https://app.withmono.com/dashboard) website and get your public and secret keys.
-2. Setup a server to [exchange tokens](https://docs.mono.co/reference/authentication-endpoint) to access user financial data with your Mono secret key.
+1. Register on the [Mono](https://app.mono.com) website and get your public and secret keys.
+2. Setup a server to [exchange tokens](https://docs.mono.co/api/bank-data/authorisation/exchange-token) to access user financial data with your Mono secret key.
 
 ## Installation
 Using NPM
