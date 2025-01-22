@@ -37,7 +37,7 @@ function MonoProvider(props: MonoProviderProps) {
 
   if (accountId) {
     payload['accountId'] = accountId;
-    payload.scope = REAUTH_SCOPE;
+    payload.scope = props?.scope ?? REAUTH_SCOPE;
   }
 
   return (
