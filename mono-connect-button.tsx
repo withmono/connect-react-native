@@ -12,12 +12,12 @@ import { MonoConnectButtonProps } from './types';
 import useMonoConnect from './use-mono-connect';
 
 const MonoConnectButton: React.FC<MonoConnectButtonProps> = (props) => {
-  const { reauth_token } = props;
+  const { accountId } = props;
   const { init, reauthorise, scope } = useMonoConnect()
   let Btn: React.ComponentType<any>;
 
   function onPress() {
-    if(reauth_token) return reauthorise(reauth_token);
+    if(accountId) return reauthorise(accountId);
 
     init();
   }

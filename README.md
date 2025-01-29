@@ -2,20 +2,17 @@
 
 The Mono Connect SDK is a quick and secure way to link bank accounts to Mono from within your React Native app. Mono Connect is a drop-in framework that handles connecting a financial institution to your app (credential validation, multi-factor authentication, error handling, etc).
 
-For accessing customer accounts and interacting with Mono's API (Identity, Transactions, Income, TransferPay) use the server-side [Mono API](https://docs.mono.co/docs/intro-to-mono-api).
-
-## Version 2 Public Beta
-<b>Important</b>: Version 2 is currently in the public beta phase. This means it's available for testing and feedback from the community. Please be aware that there may be bugs, and some features might undergo changes before the stable release.
+For accessing customer accounts and interacting with Mono's API (Identity, Transactions, Income, TransferPay) use the server-side [Mono API](https://docs.mono.co/api).
 
 ## Documentation
 
-For complete information about Mono Connect, head to the [docs](https://docs.mono.co/docs/intro-to-mono-connect-widget).
+For complete information about Mono Connect, head to the [docs](https://docs.mono.co/docs/financial-data/overview).
 
 
 ## Getting Started
 
-1. Register on the [Mono](https://app.withmono.com/dashboard) website and get your public and secret keys.
-2. Setup a server to [exchange tokens](https://docs.mono.co/reference/authentication-endpoint) to access user financial data with your Mono secret key.
+1. Register on the [Mono](https://app.mono.com) website and get your public and secret keys.
+2. Set up a server to [exchange tokens](https://docs.mono.co/api/bank-data/authorisation/exchange-token) to access user financial data with your Mono secret key.
 
 ## Installation
 Using NPM
@@ -30,6 +27,16 @@ Using yarn
 yarn add @mono.co/connect-react-native
 ```
 Also install ```react-native-webview``` because it's a peer dependency for this package.
+
+## Additional Setup
+### Android
+
+State the camera permission in your `android/app/src/main/AndroidManifest.xml` file.
+
+```xml
+<uses-permission android:name="android.permission.CAMERA"/>
+```
+
 
 ## Usage
 
@@ -72,12 +79,12 @@ function LinkAccount() {
   )
 }
 
-function ReauthoriseUserAccount({reauth_token}) {
+function ReauthoriseUserAccount({accountId}) {
   const { reauthorise } = useMonoConnect()
 
   return (
     <View style={{marginBottom: 10}}>
-      <TouchableOpacity onPress={() => reauthorise(reauth_token)}>
+      <TouchableOpacity onPress={() => reauthorise(accountId)}>
         <Text style={{color: 'blue'}}>Reauthorise user account</Text>
       </TouchableOpacity>
     </View>
@@ -97,7 +104,7 @@ function InitiateDirectDebit() {
 }
 
 export default function App() {
-  const reauth_token = "code_xyz";
+  const accountId = "account_xyz";
   const payConfig = {
     scope: "payments",
     data: {
@@ -114,7 +121,7 @@ export default function App() {
           <InitiateDirectDebit />
         </MonoProvider>
 
-        <ReauthoriseUserAccount reauth_token={reauth_token} />
+        <ReauthoriseUserAccount accountId={accountId} />
       </View>
     </MonoProvider>
   );
@@ -151,11 +158,28 @@ export default function App() {
     <MonoProvider {...config}>
       <View style={styles.container}>        
         <MonoConnectButton />
-        <MonoConnectButton reauth_token="code_xyz" /> // for reauthorisation with MonoConnectButton
+        <MonoConnectButton accountId="account_xyz" /> // for reauthorisation with MonoConnectButton
       </View>
     </MonoProvider>
   );
 }
+```
+
+### Re-authorizing an Account with Mono
+#### Fetching Account ID for previously linked account
+
+You can fetch the Account ID of a linked account from the [Mono dashboard](https://app.mono.co/customers) or [API](https://docs.mono.co/docs/customers).
+
+Alternatively, make an API call to the [Exchange Token Endpoint](https://api.withmono.com/v2/accounts/auth) with the code from a successful linking and your mono application secret key. If successful, this will return an Account ID.
+
+##### Sample request:
+```shell
+curl --request POST \
+  --url https://api.withmono.com/v2/accounts/auth \
+  --header 'Content-Type: application/json' \
+  --header 'accept: application/json' \
+  --header 'mono-sec-key: your_secret_key' \
+  --data '{"code":"string"}'
 ```
 
 ## Configuration Options
@@ -178,7 +202,7 @@ This is your Mono public API key from the [Mono dashboard](https://app.withmono.
 ### <a name="scope"></a> `scope`
 **String: Required**
 
-This is the scope the widget will launch with. This can either be `auth` or `payments`
+This is the scope the widget will launch with. This can be `auth`, `reauth`, or `payments`
 
 ### <a name="customer"></a> `Customer`
 

@@ -42,7 +42,7 @@ export default function App() {
 
         <LinkAccount />
 
-        <MonoConnectButton />
+        <MonoConnectButton accountId="65bb8ab6ed5e47f3015254f6" />
       </View>
     </MonoProvider>
   );

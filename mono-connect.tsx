@@ -5,22 +5,33 @@ import { MonoConnectProps, WebviewMessage, MonoEventData } from './types';
 import { createUrl } from './utils';
 
 const MonoConnect: React.FC<MonoConnectProps> = (props) => {
-  const { publicKey, onClose, onSuccess, onEvent, openWidget, children, ...otherConfig } = props;
+  const {
+      publicKey,
+      onClose,
+      onSuccess,
+      onEvent,
+      openWidget,
+      setOpenWidget,
+      accountId,
+      children,
+      ...otherConfig
+  } = props;
   const connect_url = React.useMemo(() => {
     const qs: any = {
       key: publicKey,
-      code: otherConfig.reauth_token,
       scope: otherConfig?.scope,
-      data: otherConfig?.data,
+      data: {
+        ...(otherConfig?.data || {}),
+        ...(accountId && { account: accountId }),
+      },
       reference: otherConfig?.reference,
       version: '2023-12-14',
       ...otherConfig
     };
     return createUrl(qs);
-  }, [otherConfig.reauth_token, publicKey, otherConfig.reference])
+  }, [accountId, publicKey, otherConfig.reference]);
 
   function handleMessage(message: string) {
-    const { setOpenWidget } = otherConfig;
     const response: WebviewMessage = JSON.parse(message);
 
     const eventData: MonoEventData = response.data;
@@ -70,8 +81,6 @@ const MonoConnect: React.FC<MonoConnectProps> = (props) => {
   }
 
   function RenderError({ name }: any) {
-    const { setOpenWidget } = otherConfig;
-
     return (
       <View style={styles.errorScreen}>
         <Text style={styles.errorMessage}>

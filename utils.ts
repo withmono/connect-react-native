@@ -25,7 +25,7 @@ function validate(config: any) {
 }
 
 function validatePaymentsData(data: any) {
-  data = {payment_id: undefined,...data};
+  data = {payment_id: undefined, ...data};
   const requiredFields = ["payment_id"];
   for(let param in data) {
     if(requiredFields.includes(param)) {

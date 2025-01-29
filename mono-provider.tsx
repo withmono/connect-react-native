@@ -2,28 +2,30 @@ import React from 'react';
 import MonoConnect from './mono-connect';
 import { MonoProviderProps } from './types';
 
+const REAUTH_SCOPE = 'reauth';
+
 export interface MonoContextType {
   init: () => void
-  reauthorise: (reauth_code: string) => void;
+  reauthorise: (accountId: string) => void;
   scope?: string;
 }
 
 export const MonoContext = React.createContext<MonoContextType>({
   init: () => null,
   reauthorise: () => null,
-})
+});
 
 function MonoProvider(props: MonoProviderProps) {
   const [openWidget, setOpenWidget] = React.useState<boolean>(false);
-  const [reauthToken, setReauthToken] = React.useState<any>(null);
+  const [accountId, setAccountId] = React.useState<string | null>(null);
 
   function init() {
-    setReauthToken(null);
+    setAccountId(null);
     setOpenWidget(true);
   }
 
-  function reauthorise(reauth_token: string) {
-    setReauthToken(reauth_token);
+  function reauthorise(accountId: string) {
+    setAccountId(accountId);
     setOpenWidget(true);
   }
 
@@ -31,18 +33,19 @@ function MonoProvider(props: MonoProviderProps) {
     openWidget,
     setOpenWidget,
     ...props
-  }
+  };
 
-  if (reauthToken){
-    payload['reauth_token'] = reauthToken
+  if (accountId) {
+    payload['accountId'] = accountId;
+    payload.scope = props?.scope ?? REAUTH_SCOPE;
   }
 
   return (
-    <MonoContext.Provider value={{init, reauthorise, scope: props?.scope}}>
+    <MonoContext.Provider value={{init, reauthorise, scope: payload.scope}}>
       <MonoConnect {...payload} />
       {props.children}
     </MonoContext.Provider>
   )
 }
 
-export default MonoProvider
+export default MonoProvider;
