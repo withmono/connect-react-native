@@ -31,12 +31,42 @@ Also install ```react-native-webview``` because it's a peer dependency for this 
 ## Additional Setup
 ### Android
 
-State the camera permission in your `android/app/src/main/AndroidManifest.xml` file.
+Add the camera permission to the `android.permissions` key in your app config (**app.json, app.config.js, app.config.ts**).
+
+```json
+{
+  "android": {
+    "permissions": ["android.permission.CAMERA"]
+  }
+}
+```
+
+Or add the camera permission directly to your `android/app/src/main/AndroidManifest.xml` file.
 
 ```xml
 <uses-permission android:name="android.permission.CAMERA"/>
 ```
 
+### iOS
+
+Set a camera permission message through the `ios.infoPlist` key in your app config.
+
+```json
+{
+  "ios": {
+    "infoPlist": {
+      "NSCameraUsageDescription": "your usage description here"
+    }
+  }
+}
+```
+
+If editing `Info.plist` as text, add:
+
+```xml
+<key>NSCameraUsageDescription</key>
+<string>your usage description here</string>
+```
 
 ## Usage
 
