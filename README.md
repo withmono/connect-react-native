@@ -238,7 +238,8 @@ curl --request POST \
 - [`onClose`](#onClose)
 - [`onEvent`](#onEvent)
 - [`reference`](#reference)
-- [`reauthCode`](#reauthCode)
+- [`selectedInstitution`](#selectedInstitution)
+- [`checkAccountMatch`](#checkAccountMatch)
 
 ### <a name="publicKey"></a> `publicKey`
 
@@ -252,7 +253,7 @@ This is your Mono public API key from the [Mono dashboard](https://app.withmono.
 
 This is the scope the widget will launch with. This can be `auth`, `reauth`, or `payments`
 
-### <a name="customer"></a> `Customer`
+### <a name="customer"></a> `customer`
 
 **Required**
 
@@ -365,6 +366,35 @@ const config = {
   onSuccess: (data) => {
     const code = data.getAuthCode()
     console.log("Access code", code)
+  },
+  reference: "random_string"
+}
+```
+
+### <a name="selectedInstitution"></a> `selectedInstitution`
+
+**Object: Optional**
+
+Passing a `selectedInstitution` object will open the widget directly to the institution passed in the `id` field and
+will only allow the user to login to that institution and authentication method. You can pass `mobile_banking` or
+`internet_banking` as possible options for the `auth_method`. To use the [account match feature](#checkAccountMatch),
+pass the customer's `account_number`.
+
+```js
+const config = {
+  publicKey: "YOUR_MONO_PUBLIC_KEY_HERE",
+  scope: "auth",
+  data: {
+    customer: { id: "mono_customer_id" }
+  },
+  onSuccess: (data) => {
+    const code = data.getAuthCode()
+    console.log("Access code", code)
+  },
+  selectedInstitution: {
+    id: "5f2d08bf60b92e2888287704",
+    auth_method: "internet_banking",
+    account_number: "02605538421"
   },
   reference: "random_string"
 }
