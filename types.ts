@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode } from 'react';
 
 interface WebviewMessage {
   type: string;
@@ -13,7 +13,7 @@ interface MonoProviderProps extends DataConfig {
   children: ReactNode;
   publicKey: string;
   onClose: () => void;
-  onSuccess: (data: {id: string}) => void;
+  onSuccess: (data: { id: string }) => void;
   accountId?: string;
   onEvent?: (eventName: string, data: MonoEventData) => void;
   reference?: string;
@@ -27,12 +27,13 @@ interface PaymentScopeData {
   currency?: string;
   period?: string;
   reference?: string;
+
   [key: string]: any;
 }
 
 interface DataDetails {
-    customer?: any;
-    payment_id?: any;
+  customer?: any;
+  payment_id?: any;
 }
 
 interface DataConfig {
@@ -41,40 +42,54 @@ interface DataConfig {
 }
 
 interface MonoEventData {
-  code?: string,
-  reference?: string,
-  errorType?: string,
-  errorMessage?: string,
-  mfaType?: string,
-  prevAuthMethod?: string,
-  authMethod?: string,
-  pageName?: string,
-  selectedAccountsCount?: number,
+  code?: string;
+  reference?: string;
+  errorType?: string;
+  errorMessage?: string;
+  mfaType?: string;
+  prevAuthMethod?: string;
+  authMethod?: string;
+  pageName?: string;
+  selectedAccountsCount?: number;
   institution?: {
-    id?: string,
-    name?: string
-  },
-  timestamp?: number
+    id?: string;
+    name?: string;
+  };
+  timestamp?: number;
+}
+
+interface InstitutionObject {
+  id?: string;
+  auth_method?: string;
+  account_number?: string;
 }
 
 interface MonoConnectProps extends DataConfig {
   publicKey: string;
   onClose: () => void;
-  onSuccess: (data: {id: string}) => void;
+  onSuccess: (data: { id: string }) => void;
   live?: boolean; // default is true
   accountId?: string;
   setOpenWidget: (v: boolean) => void;
   openWidget: boolean;
   onEvent?: (eventName: string, data: MonoEventData) => void;
+  selectedInstitution?: InstitutionObject;
   reference?: string;
-  children?: any
+  checkAccountMatch?: boolean;
+  children?: any;
 }
 
-export {
+interface ErrorProps {
+  name: string | undefined;
+  setOpenWidget: (v: boolean) => void;
+}
+
+export type {
   WebviewMessage,
   MonoConnectProps,
   MonoConnectButtonProps,
   MonoProviderProps,
   DataConfig,
-  MonoEventData
-}
+  MonoEventData,
+  ErrorProps,
+};
