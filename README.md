@@ -1,20 +1,24 @@
 # Mono Connect React Native SDK
 
-The Mono Connect SDK is a quick and secure way to link bank accounts to Mono from within your React Native app. Mono Connect is a drop-in framework that handles connecting a financial institution to your app (credential validation, multi-factor authentication, error handling, etc).
+The Mono Connect SDK is a quick and secure way to link bank accounts to Mono from within your React Native app. Mono
+Connect is a drop-in framework that handles connecting a financial institution to your app (credential validation,
+multi-factor authentication, error handling, etc).
 
-For accessing customer accounts and interacting with Mono's API (Identity, Transactions, Income, TransferPay) use the server-side [Mono API](https://docs.mono.co/api).
+For accessing customer accounts and interacting with Mono's API (Identity, Transactions, Income, TransferPay) use the
+server-side [Mono API](https://docs.mono.co/api).
 
 ## Documentation
 
 For complete information about Mono Connect, head to the [docs](https://docs.mono.co/docs/financial-data/overview).
 
-
 ## Getting Started
 
 1. Register on the [Mono](https://app.mono.com) website and get your public and secret keys.
-2. Set up a server to [exchange tokens](https://docs.mono.co/api/bank-data/authorisation/exchange-token) to access user financial data with your Mono secret key.
+2. Set up a server to [exchange tokens](https://docs.mono.co/api/bank-data/authorisation/exchange-token) to access user
+   financial data with your Mono secret key.
 
 ## Installation
+
 Using NPM
 
 ```bash
@@ -26,17 +30,22 @@ Using yarn
 ```bash
 yarn add @mono.co/connect-react-native
 ```
+
 Also install ```react-native-webview``` because it's a peer dependency for this package.
 
 ## Additional Setup
+
 ### Android
 
-Add the camera permission to the `android.permissions` key in your app config (**app.json, app.config.js, app.config.ts**).
+Add the camera permission to the `android.permissions` key in your app config (**app.json, app.config.js, app.config.ts
+**).
 
 ```json
 {
   "android": {
-    "permissions": ["android.permission.CAMERA"]
+    "permissions": [
+      "android.permission.CAMERA"
+    ]
   }
 }
 ```
@@ -44,6 +53,7 @@ Add the camera permission to the `android.permissions` key in your app config (*
 Or add the camera permission directly to your `android/app/src/main/AndroidManifest.xml` file.
 
 ```xml
+
 <uses-permission android:name="android.permission.CAMERA"/>
 ```
 
@@ -64,16 +74,18 @@ Set a camera permission message through the `ios.infoPlist` key in your app conf
 If editing `Info.plist` as text, add:
 
 ```xml
+
 <key>NSCameraUsageDescription</key>
 <string>your usage description here</string>
 ```
 
 ## Usage
 
-Before you can open Mono Connect, you need to first create a `publicKey`. Your `publicKey` can be found in the [Mono Dashboard](https://app.withmono.com/apps).
-
+Before you can open Mono Connect, you need to first create a `publicKey`. Your `publicKey` can be found in
+the [Mono Dashboard](https://app.withmono.com/apps).
 
 ### Hooks
+
 ```js
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
@@ -83,7 +95,7 @@ const config = {
   publicKey: "YOUR_MONO_PUBLIC_KEY_HERE",
   scope: 'auth',
   data: {
-    customer: {id: "mono_customer_id"}
+    customer: { id: "mono_customer_id" }
   },
   onClose: () => alert('Widget closed'),
   onSuccess: (data) => {
@@ -101,21 +113,21 @@ function LinkAccount() {
   const { init } = useMonoConnect()
 
   return (
-    <View style={{marginBottom: 10}}>
+    <View style={{ marginBottom: 10 }}>
       <TouchableOpacity onPress={() => init()}>
-        <Text style={{color: 'blue'}}>Link your bank account</Text>
+        <Text style={{ color: 'blue' }}>Link your bank account</Text>
       </TouchableOpacity>
     </View>
   )
 }
 
-function ReauthoriseUserAccount({accountId}) {
+function ReauthoriseUserAccount({ accountId }) {
   const { reauthorise } = useMonoConnect()
 
   return (
-    <View style={{marginBottom: 10}}>
+    <View style={{ marginBottom: 10 }}>
       <TouchableOpacity onPress={() => reauthorise(accountId)}>
-        <Text style={{color: 'blue'}}>Reauthorise user account</Text>
+        <Text style={{ color: 'blue' }}>Reauthorise user account</Text>
       </TouchableOpacity>
     </View>
   )
@@ -125,9 +137,9 @@ function InitiateDirectDebit() {
   const { init } = useMonoConnect();
 
   return (
-    <View style={{marginBottom: 10}}>
+    <View style={{ marginBottom: 10 }}>
       <TouchableOpacity onPress={() => init()}>
-        <Text style={{color: 'blue'}}>Initiate Mono Direct debit</Text>
+        <Text style={{ color: 'blue' }}>Initiate Mono Direct debit</Text>
       </TouchableOpacity>
     </View>
   )
@@ -145,13 +157,13 @@ export default function App() {
   return (
     <MonoProvider {...config}>
       <View style={styles.container}>
-        <LinkAccount />
+        <LinkAccount/>
 
-        <MonoProvider {...{...config, ...payConfig}}>
-          <InitiateDirectDebit />
+        <MonoProvider {...{ ...config, ...payConfig }}>
+          <InitiateDirectDebit/>
         </MonoProvider>
 
-        <ReauthoriseUserAccount accountId={accountId} />
+        <ReauthoriseUserAccount accountId={accountId}/>
       </View>
     </MonoProvider>
   );
@@ -178,7 +190,7 @@ import { MonoConnectButton, MonoProvider } from '@mono.co/connect-react-native';
 const config = {
   publicKey: "YOUR_MONO_PUBLIC_KEY",
   scope: "auth",
-  customer: {id: "mono_customer_id"},
+  customer: { id: "mono_customer_id" },
   onClose: () => alert('Widget closed'),
   onSuccess: (data) => console.log(data)
 }
@@ -186,9 +198,10 @@ const config = {
 export default function App() {
   return (
     <MonoProvider {...config}>
-      <View style={styles.container}>        
-        <MonoConnectButton />
-        <MonoConnectButton accountId="account_xyz" /> // for reauthorisation with MonoConnectButton
+      <View style={styles.container}>
+        <MonoConnectButton/>
+        <MonoConnectButton accountId="account_xyz"/>
+        // for reauthorisation with MonoConnectButton
       </View>
     </MonoProvider>
   );
@@ -196,13 +209,17 @@ export default function App() {
 ```
 
 ### Re-authorizing an Account with Mono
+
 #### Fetching Account ID for previously linked account
 
-You can fetch the Account ID of a linked account from the [Mono dashboard](https://app.mono.co/customers) or [API](https://docs.mono.co/docs/customers).
+You can fetch the Account ID of a linked account from the [Mono dashboard](https://app.mono.co/customers)
+or [API](https://docs.mono.co/docs/customers).
 
-Alternatively, make an API call to the [Exchange Token Endpoint](https://api.withmono.com/v2/accounts/auth) with the code from a successful linking and your mono application secret key. If successful, this will return an Account ID.
+Alternatively, make an API call to the [Exchange Token Endpoint](https://api.withmono.com/v2/accounts/auth) with the
+code from a successful linking and your mono application secret key. If successful, this will return an Account ID.
 
 ##### Sample request:
+
 ```shell
 curl --request POST \
   --url https://api.withmono.com/v2/accounts/auth \
@@ -221,22 +238,24 @@ curl --request POST \
 - [`onClose`](#onClose)
 - [`onEvent`](#onEvent)
 - [`reference`](#reference)
-- [`reauthCode`](#reauthCode)
-
+- [`selectedInstitution`](#selectedInstitution)
+- [`checkAccountMatch`](#checkAccountMatch)
 
 ### <a name="publicKey"></a> `publicKey`
+
 **String: Required**
 
 This is your Mono public API key from the [Mono dashboard](https://app.withmono.com/apps).
 
 ### <a name="scope"></a> `scope`
+
 **String: Required**
 
 This is the scope the widget will launch with. This can be `auth`, `reauth`, or `payments`
 
-### <a name="customer"></a> `Customer`
+### <a name="customer"></a> `customer`
 
-**Required**  
+**Required**
 
 ```js
 // For an existing customer, their customer ID can be passed directly
@@ -253,7 +272,7 @@ const customer = {
   },
 }
 
-const config = { 
+const config = {
   key: 'mono_public_key',
   scope: 'auth',
   data: { customer },
@@ -261,16 +280,18 @@ const config = {
 ```
 
 ### <a name="onSuccess"></a> `onSuccess`
+
 **(data) => { Void }: Required**
 
-The closure is called when a user has successfully onboarded their account. It should take a single String argument containing the code that can be [exchanged for an account id](https://docs.mono.co/reference/authentication-endpoint).
+The closure is called when a user has successfully onboarded their account. It should take a single String argument
+containing the code that can be [exchanged for an account id](https://docs.mono.co/reference/authentication-endpoint).
 
 ```js
 const config = {
   publicKey: "YOUR_MONO_PUBLIC_KEY_HERE",
   scope: 'auth',
   data: {
-    customer: {id: "mono_customer_id"}
+    customer: { id: "mono_customer_id" }
   },
   onSuccess: (data) => {
     const code = data.getAuthCode()
@@ -279,18 +300,19 @@ const config = {
 }
 ```
 
-
 ### <a name="onClose"></a> `onClose`
+
 **() => { Void }: Optional**
 
-The optional closure is called when a user has specifically exited the Mono Connect flow. It does not take any arguments.
+The optional closure is called when a user has specifically exited the Mono Connect flow. It does not take any
+arguments.
 
 ```js
 const config = {
   publicKey: "YOUR_MONO_PUBLIC_KEY_HERE",
   scope: 'auth',
   data: {
-    customer: {id: "mono_customer_id"}
+    customer: { id: "mono_customer_id" }
   },
   onSuccess: (data) => {
     const code = data.getAuthCode()
@@ -301,9 +323,12 @@ const config = {
 ```
 
 ### <a name="onEvent"></a> `onEvent`
+
 **(eventName, data) => { Void }: Optional**
 
-This optional closure is called when certain events in the Mono Connect flow have occurred, for example, when the user selected an institution. This enables your application to gain further insight into what is going on as the user goes through the Mono Connect flow.
+This optional closure is called when certain events in the Mono Connect flow have occurred, for example, when the user
+selected an institution. This enables your application to gain further insight into what is going on as the user goes
+through the Mono Connect flow.
 
 See the [event details](#connectEvent) below.
 
@@ -312,7 +337,7 @@ const config = {
   publicKey: "YOUR_MONO_PUBLIC_KEY_HERE",
   scope: 'auth',
   data: {
-    customer: {id: "mono_customer_id"}
+    customer: { id: "mono_customer_id" }
   },
   onSuccess: (data) => {
     const code = data.getAuthCode()
@@ -326,6 +351,7 @@ const config = {
 ```
 
 ### <a name="reference"></a> `reference`
+
 **String: Optional**
 
 When passing a reference to the configuration it will be passed back on all onEvent calls.
@@ -335,7 +361,7 @@ const config = {
   publicKey: "YOUR_MONO_PUBLIC_KEY_HERE",
   scope: 'auth',
   data: {
-    customer: {id: "mono_customer_id"}
+    customer: { id: "mono_customer_id" }
   },
   onSuccess: (data) => {
     const code = data.getAuthCode()
@@ -345,6 +371,62 @@ const config = {
 }
 ```
 
+### <a name="selectedInstitution"></a> `selectedInstitution`
+
+**Object: Optional**
+
+Passing a `selectedInstitution` object will open the widget directly to the institution passed in the `id` field and
+will only allow the user to login to that institution and authentication method. You can pass `mobile_banking` or
+`internet_banking` as possible options for the `auth_method`. To use the [account match feature](#checkAccountMatch),
+pass the customer's `account_number`.
+
+```js
+const config = {
+  publicKey: "YOUR_MONO_PUBLIC_KEY_HERE",
+  scope: "auth",
+  data: {
+    customer: { id: "mono_customer_id" }
+  },
+  onSuccess: (data) => {
+    const code = data.getAuthCode()
+    console.log("Access code", code)
+  },
+  selectedInstitution: {
+    id: "5f2d08bf60b92e2888287704",
+    auth_method: "internet_banking",
+    account_number: "02605538421"
+  },
+  reference: "random_string"
+}
+```
+
+### <a name="checkAccountMatch"></a> `checkAccountMatch`
+
+**boolean: Optional**
+
+The Account Match feature allows you to verify that the account number provided by a customer matches the account number
+returned from their linked bank account.
+
+```js
+const config = {
+  publicKey: "YOUR_MONO_PUBLIC_KEY_HERE",
+  scope: "auth",
+  data: {
+    customer: { id: "mono_customer_id" }
+  },
+  onSuccess: (data) => {
+    const code = data.getAuthCode()
+    console.log("Access code", code)
+  },
+  selectedInstitution: {
+    id: "5f2d08bf60b92e2888287704",
+    auth_method: "internet_banking",
+    account_number: "02605538421"
+  },
+  reference: "random_string",
+  checkAccountMatch: true
+}
+```
 
 ### <a name="connectEvent"></a> Event Details
 
@@ -352,20 +434,20 @@ const config = {
 
 Event names corespond to the type of event that occurred. Possible options are in the table below.
 
-| Event Name | Description |
-| ----------- | ----------- |
-| OPENED | Triggered when the user opens the Connect Widget. |
-| EXIT | Triggered when the user closes the Connect Widget. |
-| SUCCESS | Triggered when the user successfully links their account and provides the code for autentication. |
-| INSTITUTION_SELECTED | Triggered when the user selects an institution. |
+| Event Name           | Description                                                                                           |
+|----------------------|-------------------------------------------------------------------------------------------------------|
+| OPENED               | Triggered when the user opens the Connect Widget.                                                     |
+| EXIT                 | Triggered when the user closes the Connect Widget.                                                    |
+| SUCCESS              | Triggered when the user successfully links their account and provides the code for autentication.     |
+| INSTITUTION_SELECTED | Triggered when the user selects an institution.                                                       |
 | AUTH_METHOD_SWITCHED | Triggered when the user changes authentication method from internet to mobile banking, or vice versa. |
-| SUBMIT_CREDENTIALS | Triggered when the user presses Log in. |
-| ACCOUNT_LINKED | Triggered when the user successfully links their account. |
-| ACCOUNT_SELECTED | Triggered when the user selects a new account. |
-| ERROR | Triggered when the widget reports an error.|
-
+| SUBMIT_CREDENTIALS   | Triggered when the user presses Log in.                                                               |
+| ACCOUNT_LINKED       | Triggered when the user successfully links their account.                                             |
+| ACCOUNT_SELECTED     | Triggered when the user selects a new account.                                                        |
+| ERROR                | Triggered when the widget reports an error.                                                           |
 
 #### <a name="dataObject"></a> `data: JSON`
+
 The data JSON returned from the onEvent callback.
 
 ```js
@@ -386,14 +468,16 @@ timestamp: Number // unix timestamp of the event as a number
 
 See more examples [here](/examples).
 
-
 ## Support
-If you're having general trouble with Mono Connect React Native SDK or your Mono integration, please reach out to us at <support@mono.co> or come chat with us on Slack. 
+
+If you're having general trouble with Mono Connect React Native SDK or your Mono integration, please reach out to us
+at <support@mono.co> or come chat with us on Slack.
 We're proud of our level of service, and we're more than happy to help you out with your integration to Mono.
 
 ## Contributing
-If you would like to contribute to the Mono Connect React Native SDK, please make sure to read our [contributor guidelines](https://github.com/withmono/connect-react-native/tree/develop/CONTRIBUTING.md).
 
+If you would like to contribute to the Mono Connect React Native SDK, please make sure to read
+our [contributor guidelines](https://github.com/withmono/connect-react-native/tree/develop/CONTRIBUTING.md).
 
 ## License
 
