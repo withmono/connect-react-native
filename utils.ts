@@ -6,6 +6,13 @@ function createUrl(qs: any) {
   if(valid) {
     for (const k in qs) {
       const value = typeof(qs[k]) === "object" ? JSON.stringify(qs[k]) : qs[k];
+
+      // Fix: skip null/undefined values before appending to the URL string.
+      // Undefined optional params (e.g. reference, check_account_match) were
+      // being serialized as literal "undefined" strings in the widget URL,
+      // causing the Mono backend to fail validation on React Native.
+      if (value === undefined || value === null || value === 'undefined') continue;
+
       base = base.concat(`${k}=${value}&`);
     }
   

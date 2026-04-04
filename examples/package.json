@@ -4,22 +4,19 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web",
-    "eject": "expo eject"
+    "web": "expo start --web"
   },
   "dependencies": {
     "@mono.co/connect-react-native": "^2.1.0",
-    "expo": "^42.0.0",
-    "expo-status-bar": "~1.0.4",
-    "react": "16.13.1",
-    "react-dom": "16.13.1",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
-    "react-native-web": "~0.13.12",
-    "react-native-webview": "11.6.2"
+    "expo": "~55.0.0",
+    "expo-status-bar": "~2.2.0",
+    "react": "19.2.0",
+    "react-native": "0.83.0",
+    "react-native-webview": "^13.16.1"
   },
   "devDependencies": {
-    "@babel/core": "~7.9.0",
-    "babel-preset-expo": "8.3.0"
+    "@babel/core": "^7.25.0",
+    "babel-preset-expo": "~12.0.0"
   },
   "private": true
 }
