@@ -44,7 +44,6 @@ const MonoConnect: React.FC<MonoConnectProps> = (props) => {
         const data = response.data;
         onSuccess({ ...data, getAuthCode: () => data.code });
         if (onEvent) onEvent('SUCCESS', eventData);
-        setOpenWidget(false);
         break;
       case 'mono.connect.widget.closed':
         setOpenWidget(false);
