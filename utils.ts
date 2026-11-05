@@ -1,14 +1,17 @@
+import { SDK_VERSION } from './sdk-version';
+
 function createUrl(qs: any) {
   let base = "https://connect.mono.co/?";
 
   const valid = validate(qs);
 
   if(valid) {
-    for (const k in qs) {
-      const value = typeof(qs[k]) === "object" ? JSON.stringify(qs[k]) : qs[k];
+    const params = { ...qs, sdk_version: SDK_VERSION };
+    for (const k in params) {
+      const value = typeof(params[k]) === "object" ? JSON.stringify(params[k]) : params[k];
       base = base.concat(`${k}=${value}&`);
     }
-  
+
     return base.slice(0, -1);
   }
 
